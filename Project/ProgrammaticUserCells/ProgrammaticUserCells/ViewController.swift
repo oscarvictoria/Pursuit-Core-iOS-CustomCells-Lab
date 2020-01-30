@@ -24,6 +24,7 @@ class ViewController: UIViewController {
         
         mainView.collectionView.backgroundColor = .black
         mainView.collectionView.dataSource = self
+        mainView.collectionView.delegate = self
 //        mainView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "userCell")
         mainView.collectionView.register(UINib(nibName: "RandomUserCell", bundle: nil), forCellWithReuseIdentifier: "userCell")
         loadUsers()
@@ -62,11 +63,20 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
-func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    // override the default items of the itemSize layout from the collectionView property initializer in the PodcastView
-//    let maxSize: CGSize = UIScreen.main.bounds.size
-//    let itemWidth: CGFloat = maxSize.width * 0.90
-    return CGSize(width: 100, height: 100)
-}
+//func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//    // override the default items of the itemSize layout from the collectionView property initializer in the PodcastView
+////    let maxSize: CGSize = UIScreen.main.bounds.size
+////    let itemWidth: CGFloat = maxSize.width * 0.90
+//    return CGSize(width: 400, height: 150)
+//}
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = randomUsers[indexPath.row]
+        
+        let detailVC = DetailViewController()
+        
+        detailVC.users = user
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
     
 }
